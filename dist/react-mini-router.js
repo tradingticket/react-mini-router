@@ -81,7 +81,7 @@ module.exports = {
 
     onPopState: function(e) {
         debugger
-        url = urllite(e.url)
+        url = urllite(e.newURL)
         this.setHash(url)
     },
 
