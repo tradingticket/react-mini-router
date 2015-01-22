@@ -24,6 +24,7 @@ module.exports = {
         useHistory: React.PropTypes.bool
     },
     setHash: function (url) {
+      debugger
       var path = url.pathname + (url.search || '');
 
       this.setState({ path: path});
@@ -79,6 +80,7 @@ module.exports = {
     },
 
     onPopState: function(e) {
+        debugger
         url = urllite(e.url)
         this.setHash(url)
     },
@@ -112,7 +114,7 @@ module.exports = {
             // Give any component event listeners a chance to fire in the current event loop,
             // since they happen at the end of the bubbling phase. (Allows an onClick prop to
             // work correctly on the event target <a/> component.)
-            
+
             this.setHash(url);
         }
     },
@@ -223,6 +225,7 @@ module.exports = function triggerUrl(url, silent) {
     if (detect.hasHashbang()) {
         window.location.hash = '#!' + url;
     } else if (detect.hasPushState) {
+        debugger
         window.history.pushState({}, '', url);
         var e = new window.Event('popstate')
         e.url = window.location.href + url;
