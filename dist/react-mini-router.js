@@ -25,8 +25,7 @@ module.exports = {
     },
     setHash: function (url) {
       debugger
-      var path = url.pathname + (url.search || '');
-
+      var path = url.pathname
       this.setState({ path: path});
     },
     getChildContext: function() {
@@ -58,15 +57,12 @@ module.exports = {
     componentDidMount: function() {
         this.getDOMNode().addEventListener('click', this.handleClick, false);
 
-        if (this.state.useHistory) {
-            window.addEventListener('popstate', this.onPopState, false);
-        } else {
-            if (window.location.hash.indexOf('#!') === -1) {
-                window.location.hash = '#!/';
-            }
-
-            window.addEventListener('hashchange', this.onPopState, false);
+        window.addEventListener('popstate', this.onPopState, false);
+        if (window.location.hash.indexOf('#!') === -1) {
+            window.location.hash = '#!/';
         }
+
+
     },
 
     componentWillUnmount: function() {
@@ -80,8 +76,7 @@ module.exports = {
     },
 
     onPopState: function(e) {
-        debugger
-        url = urllite(e.newURL)
+        url = urllite(e.url || e.newURL)
         this.setHash(url)
     },
 
@@ -89,6 +84,7 @@ module.exports = {
         var path = this.state.path,
             url = urllite(path),
             queryParams = parseSearch(url.search);
+
 
         var parsedPath = url.pathname;
 
@@ -106,8 +102,8 @@ module.exports = {
     },
 
     handleClick: function(evt) {
-        var url = getHref(evt);
 
+        var url = getHref(evt);
         if (url && this.matchRoute(url.pathname)) {
             evt.preventDefault();
             // See: http://facebook.github.io/react/docs/interactivity-and-dynamic-uis.html
@@ -219,23 +215,15 @@ module.exports = {
 };
 
 },{}],4:[function(require,module,exports){
-var detect = require('./detect');
-
 module.exports = function triggerUrl(url, silent) {
-    if (detect.hasHashbang()) {
-        window.location.hash = '#!' + url;
-    } else if (detect.hasPushState) {
-        debugger
-        window.history.pushState({}, '', url);
         var e = new window.Event('popstate')
         e.url = window.location.href + url;
-        if (!silent) window.dispatchEvent(e);
-    } else {
-        console.error("Browser does not support pushState, and hash is missing a hashbang prefix!");
-    }
+        e.url = e.url.replace('!//', '!/');
+        debugger
+        window.dispatchEvent(e);
 };
 
-},{"./detect":3}],5:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var isArray = require('isarray');
 
 /**
