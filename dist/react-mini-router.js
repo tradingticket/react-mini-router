@@ -88,8 +88,10 @@ module.exports = {
 
     onPopState: function(e) {
       if(typeof e.url != 'undefined')
+      {
         url = urllite(e.url || e.newURL)
         this.setHash(url)
+      }
     },
 
     renderCurrentRoute: function() {
