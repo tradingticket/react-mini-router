@@ -24,6 +24,7 @@ module.exports = {
         useHistory: React.PropTypes.bool
     },
     setHash: function (url) {
+      debugger
       var path = url.pathname
       this.setState({ path: path});
     },
