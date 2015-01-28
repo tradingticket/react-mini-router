@@ -24,7 +24,6 @@ module.exports = {
         useHistory: React.PropTypes.bool
     },
     setHash: function (url) {
-      debugger
       var path = url.pathname
       this.setState({ path: path});
     },
@@ -219,7 +218,6 @@ module.exports = function triggerUrl(url, silent) {
         var e = new window.Event('popstate')
         e.url = window.location.href + url;
         e.url = e.url.replace('!//', '!/');
-        debugger
         window.dispatchEvent(e);
 };
 
