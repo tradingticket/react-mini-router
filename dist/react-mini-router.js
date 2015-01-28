@@ -25,7 +25,7 @@ module.exports = {
     },
     setHash: function (url) {
       var path;
-      if(url.pathname == '/')
+      if(this.state.useHistory)
       {
 
         var splits = url.hash.split('/');
