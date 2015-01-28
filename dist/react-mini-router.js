@@ -36,7 +36,6 @@ module.exports = {
       }
       else
        path = url.pathname
-      debugger
       this.setState({ path: path});
     },
     getChildContext: function() {
