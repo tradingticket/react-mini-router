@@ -36,6 +36,7 @@ module.exports = {
       }
       else
        path = url.pathname
+      debugger
       this.setState({ path: path});
     },
     getChildContext: function() {
@@ -86,6 +87,7 @@ module.exports = {
     },
 
     onPopState: function(e) {
+      if(typeof e.url != 'undefined')
         url = urllite(e.url || e.newURL)
         this.setHash(url)
     },
